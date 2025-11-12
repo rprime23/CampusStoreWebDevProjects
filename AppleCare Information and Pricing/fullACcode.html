@@ -1,0 +1,331 @@
+<!-- SOME STYLING WAS BUILT INTO THE CMS SO PREVIEWS OF DIRECT CODE WILL APPEAR DIFFERENT THAN SCREENSHOTS -->
+<style>
+/*********************/
+/* APPLECARE STYLING */
+/*********************/
+
+/* Hide both by default */
+
+.mobile-only, .desktop-only {
+  display: none;
+}
+
+/* MOBILE (≤767px) — stacked layout */
+
+@media (max-width: 767px) {
+
+  .mobile-only {
+    display: block;
+  }
+
+  .image-container {
+    display: flex;
+    flex-direction: column;    /* stack vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .image-container img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+  }
+
+  .product {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .product ul {
+    margin-top: 20px;
+    padding-left: 0;
+    list-style-position: inside;
+    display: inline-block;
+    text-align: left;
+  }
+}
+
+/* DESKTOP (≥768px) — side by side layout */
+
+@media (min-width: 768px) {
+
+  .desktop-only {
+    display: block;
+  }
+
+  .image-container {
+    display: flex;
+    flex-direction: row;    /* side by side */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .image-container img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+  }
+
+  .product {
+    padding: 20px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 10px;
+  }
+
+  .product ul {
+    margin-top: 20px;
+    padding-left: 0;
+    list-style-position: inside;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .ac-icon {
+    width: 50%;
+  }
+
+  .ac-icon-long {
+    width: 65%;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+  }
+}
+
+/* Button Styling */
+
+.buy-button.columnscct-button {
+  display: block;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/***********************/
+/* PRICE TABLE STYLING */
+/***********************/
+
+.price-table {
+  border-collapse: separate;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  border: none;
+  /*background-color: #f0f0f0;*/
+}
+
+.price-th,
+.price-td {
+  border: none;
+  padding: 10px;
+  text-align: center;
+}
+
+.price-th {
+  background-color: #ffffff;
+  font-weight: bold;
+  border-radius: 5px 5px 0px 0px;
+  vertical-align: middle;
+}
+
+.price-td {
+  vertical-align: middle;
+  background-color: #f0f0f0;
+}
+
+.compare-title {
+  color: #BE0000;
+  text-align: left;
+  background-color: #fcfcfc;
+}
+
+.header-retailers {
+  background-color: #555;
+  color: white;
+}
+
+.header-campus {
+  background-color: #BE0000;
+  color: white;
+}
+
+.total-savings {
+  background-color: #f0f0f0;
+  color: #009000;
+  font-weight: bold;
+  border: 2px solid #BE0000;
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+}
+
+.left-col {
+  text-align: left;
+}
+
+.right-col {
+  border: 2px solid #BE0000;
+  border-top: none;
+  border-bottom: none;
+}
+
+.alt-row {
+  background-color: #f8f8f8;
+}
+
+/**********************/
+/* APPLE GRID STYLING */
+/**********************/
+
+.outer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ac {
+  display: flex;
+  align-items: center;
+}
+
+.pricing {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 25px;
+  flex-direction: column;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+
+  .outer-grid {
+    display: grid;
+    grid-template-columns: 0% 100%;
+    margin-bottom: 20px;
+  }
+}
+
+/* TABLET */
+@media (min-width: 768px) and (max-width: 991px) {
+  .outer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ac {
+    order: 1;
+  }
+
+  .pricing {
+    order: 0;
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 992px) {
+  .outer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .ac {
+    order: 0;
+  }
+
+  .pricing {
+    order: 1;
+  }
+}
+</style>
+
+<div class="outer-grid"> 
+  <!-- APPLE CARE --> 
+  <div class="ac"> 
+    <div class="desktop-only"> 
+      <div class="product"> 
+        <div class="info"> 
+          <a href="https://www.apple.com/support/products/mac/"> 
+            <!--<img src="/product_images/2129736_media_2.jpg" alt="Apple Care+" class="ac-icon">--> 
+            <img src="https://www.store.utah.edu//assets/AppleCare+(wide).jpg" alt="AppleCare+" class="ac-icon-long"> 
+          </a> 
+          <ul style="margin-top: 20px; padding-left: 20px; width: fit-content; margin-left: auto; margin-right: auto;"> 
+            <li><strong>Accidental damage claims:</strong> Unlimited for 3 years</li> 
+            <li><strong>Battery service:</strong> If retention < 80% of original capacity</li> 
+            <li><strong>Screen/enclosure damage:</strong> $99 Service fee</li> 
+            <li><strong>Other accidental damage:</strong> $299 Service fee</li> 
+            <li><strong>Service Center:</strong> On-campus at Campus Store</li> 
+          </ul> 
+          <a class="buy-button columnscct-button" data-action="navigate-to-url" 
+            href="https://store.utah.edu/app/site/backend/intl/additemtocart.nl?c=8157132&buyid=multi&multi=421947,1"> 
+            Add To Cart for $179 
+          </a> 
+        </div> 
+        <div class="image-container"> 
+          <img src="https://www.store.utah.edu//assets/Applecare_02.jpg" alt="Apple Care+"> 
+        </div> 
+      </div> 
+    </div> 
+  </div> 
+  <!-- TABLE --> 
+  <div class="pricing"> 
+    <table class="price-table"> 
+      <tr> 
+        <th class="compare-title price-th">COMPARE PRICING</th> 
+        <th class="header-campus price-th">Utah Campus Store</th> 
+        <th class="header-retailers price-th">Other Retailers</th> 
+      </tr> 
+      <tr> 
+        <td class="left-col alt-row price-td">MacBook Air 13" (M4)</td> 
+        <td class="right-col alt-row price-td">$899</td> 
+        <td class="alt-row price-td">$999</td> 
+      </tr> 
+      <tr> 
+        <td class="left-col price-td">Sales Tax (8.25%)*</td> 
+        <td class="right-col price-td">$0</td> 
+        <td class="price-td">$84.82</td> 
+      </tr> 
+      <tr> 
+        <td class="left-col alt-row price-td"><strong>Final Price</strong></td> 
+        <td class="right-col alt-row price-td"><strong>$899</strong></td> 
+        <td class="alt-row price-td"><strong>$1,083.42</strong></td> 
+      </tr> 
+      <tr> 
+        <td class="left-col price-td"><strong>Total Savings</strong></td> 
+        <td class="total-savings price-td">$184.82</td> 
+        <td class="price-td">$0</td> 
+      </tr> 
+    </table> 
+    <p style="margin-left:5px; margin-top:10px">*Tax rates are subject to change per state and local sales tax laws</p> 
+  </div> 
+</div> 
+<div class="mobile-only">
+ <div class="product">
+    <div class="image-container">
+      <img src="https://www.store.utah.edu//product_images/2129736_media_2.jpg" alt="Apple Care+">
+      <img src="https://www.store.utah.edu//assets/Applecare_02.jpg" alt="Apple Care+">
+    </div>
+
+    <ul style="margin-top: 20px; padding-left: 20px; width: fit-content; margin-left: auto; margin-right: auto;">
+      <li><strong>Accidental damage claims:</strong> Unlimited for 2 years</li>
+      <li><strong>Accessories:</strong> $29 Service fee</li>
+      <li><strong>Screen/enclosure damage:</strong> $29 Service fee</li>
+      <li><strong>Other accidental damage:</strong> $99 Service fee</li>
+      <li><strong>Service Center:</strong> On-campus at Campus Store</li>
+    </ul>
+
+    <a class="buy-button columnscct-button"
+       href="https://store.utah.edu/app/site/backend/intl/additemtocart.nl?c=8157132&buyid=multi&multi=284103,1">
+       Add To Cart for $89
+    </a>
+  </div>
+</div>
