@@ -1,0 +1,357 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    transition: 0.05s ease-in;
+  }
+  
+  .calendar-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .day-frame {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .day-frame.real::before {
+    content: "";
+    position: absolute;
+    top:0; left:0; right:0; bottom:0;
+    background-color: rgba(0,0,0,0);
+    transition: background-color 0.3s ease;
+    z-index: 1;
+  }
+  .day-frame.real:hover::before {
+    background-color: rgba(0,0,0,0.5);
+  }
+  
+  .day-frame.real::after {
+    content: "";
+    position: absolute;
+    top:0; left:0; right:0; bottom:0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
+  .day-frame.real:hover::after {
+    opacity: 1;
+  }
+  
+  .day-frame.real:hover {
+    transform: scale(1.1);
+  }
+  
+  .day-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: green !important;
+    text-shadow: 0 0 1rem rgba(0, 0, 0, 0.35);
+    line-height: 3rem;
+    text-align: right;
+    z-index: 2;
+  }
+  
+  .real:hover > .day-number {
+      color: rgba(0,0,0,0) !important;
+      text-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  
+  .day-label {
+    position: absolute;
+    color: white;
+    font-size: 1.35rem !important;
+    opacity: 0;             
+    pointer-events: none;   
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    z-index: 3;
+  }
+  
+  .real:hover > .day-label {
+    opacity: 1;            
+    pointer-events: auto;  
+  }
+  
+  .day-label * {
+    color: white;
+  }
+  
+  .day-label > p,
+  .day-label > a {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .day-label .day-label-title {
+    font-size: 2rem !important;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .day-label > p {
+    font-size: 1rem !important;
+    padding: 0 5px !important;
+    text-align: center;
+  }
+  
+  .day-label > a {
+    text-decoration: underline;
+    font-size: 1.35rem !important;
+    font-weight:bold;
+  }
+  
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media screen and (min-width: 1200px) {
+    .calendar-container {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    #one h3.day-number, #two h3.day-number, #three h3.day-number,
+    #four h3.day-number, #five h3.day-number, #six h3.day-number,
+    #seven h3.day-number, #eight h3.day-number, #nine h3.day-number,
+    #ten h3.day-number, #eleven h3.day-number, #twelve h3.day-number {
+      font-size: 3rem !important;
+      line-height:3rem !important;
+    }
+  }
+  
+  @media screen and (max-width: 1200px) and (min-width: 480px) {
+    .calendar-container {
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: 50px;
+    }
+    #one h3.day-number, #two h3.day-number, #three h3.day-number,
+    #four h3.day-number, #five h3.day-number, #six h3.day-number,
+    #seven h3.day-number, #eight h3.day-number, #nine h3.day-number,
+    #ten h3.day-number, #eleven h3.day-number, #twelve h3.day-number {
+      font-size: 2rem !important;
+      line-height:2rem !important;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .calendar-container {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 50px;
+    }
+    .day-label {
+      gap:0px !important;
+    }
+    .day-label .day-label-title {
+      font-size: 1rem !important;
+      margin: 0 !important;
+      padding: 0 5px !important;
+      line-height:1rem !important;
+    }
+    .day-label > p {
+      font-size: .65rem !important;
+      margin: 0 !important;
+      padding: 0 5px !important;
+      line-height:1rem !important;
+    }
+    .day-label > a {
+      font-size: .80rem !important;
+      margin: 0 !important;
+      padding: 0 5px !important;
+      line-height:1rem !important;
+    }
+    #one h3.day-number, #two h3.day-number, #three h3.day-number,
+    #four h3.day-number, #five h3.day-number, #six h3.day-number,
+    #seven h3.day-number, #eight h3.day-number, #nine h3.day-number,
+    #ten h3.day-number, #eleven h3.day-number, #twelve h3.day-number {
+      font-size: 1rem !important;
+      line-height:1rem !important;
+    }
+  }
+  
+  #one { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #two { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #three { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #four { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #five { background-image: url("/assets/f25-12dcc-square.jpg"); background-position: left center; }
+  #six { background-image: url("/assets/f25-12dcc-square.jpg"); background-position: left center; }
+  #seven { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #eight { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #nine { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #ten { background-image: url("/assets/f25-12dcc-square.jpg"); background-position: left bottom; }
+  #eleven { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  #twelve { background-image: url("/assets/f25-12dcc-square.jpg"); }
+  
+  /*#one.real::after { background-image: url("/assets/f25-12dcc-day01.jpg"); }*/
+  #two.real::after { background-image: url("/assets/f25-12dcc-day02.jpg"); }
+  #three.real::after { background-image: url("/assets/f25-12dcc-day03.jpg"); }
+  #four.real::after { background-image: url("/assets/f25-12dcc-day04.jpg"); }
+  #five.real::after { background-image: url("/assets/f25-12dcc-day05.jpg"); }
+  #six.real::after { background-image: url("/assets/f25-12dcc-day06.jpg"); }
+  #seven.real::after { background-image: url("/assets/f25-12dcc-day07.jpg"); }
+  #eight.real::after { background-image: url("/assets/f25-12dcc-day08.jpg"); }
+  #nine.real::after { background-image: url("/assets/f25-12dcc-day09.jpg"); }
+  #ten.real::after { background-image: url("/assets/f25-12dcc-day10.jpg"); }
+  #eleven.real::after { background-image: url("/assets/f25-12dcc-day11.jpg"); }
+  #twelve.real::after { background-image: url("/assets/f25-12dcc-day12.jpg"); }
+</style>
+
+<div class="calendar-container">
+  <div class="day-frame center real" id='one'>
+    <h3 class="day-number">Day<br>1</h3>
+    
+    <div class="day-label center">Coming Soon!</div>
+		
+		<!--<div class="day-label center">-->
+		<!--  <p class="day-label-title">Holiday Ornaments</p>-->
+		<!--  <p><span style="font-weight:bold;">Sale:</span> Rooftop Santa & Swoop Snowglobe $9.99</p>-->
+    <!--  <a href="/">Shop Now</a>-->
+		<!--</div>-->
+		
+  </div>
+  <div class="day-frame center real" id='two'>
+    <h3 class="day-number">Day<br>2</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">30% Off Polos & Select Styles</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='three'>
+    <h3 class="day-number">Day<br>3</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">Holiday Candy Buy 2, Get 1 Free</p>
+		  <p><span style="font-weight:bold;">Sale:</span> FOCO Football</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id="four">
+    <h3 class="day-number">Day<br>4</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">Football Helmet Replicas Mini &amp Full Size</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='five'>
+    <h3 class="day-number">Day<br>5</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">Utah Blankets &amp Pillows</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='six'>
+    <h3 class="day-number">Day<br>6</h3>
+      
+      <!--<div class="day-label center">Coming Soon!</div>-->
+
+		<div class="day-label center">
+		  <p class="day-label-title">Utah Drinkware</p>
+		  <p><span style="font-weight:bold;">Sale:</span> Buy 1, Get 1 50% Off</p>
+      <a href="/">Shop Now</a>
+		</div>
+  </div>
+  <div class="day-frame center real" id='seven'>
+    <h3 class="day-number">Day<br>7</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+
+		<div class="day-label center">
+		  <p class="day-label-title">Tailgate Camp Bundle 2 chairs &amp a table</p>
+		  <p><span style="font-weight:bold;">Sale:</span> $99.99 (Retail $149.99)</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='eight'>
+    <h3 class="day-number">Day<br>8</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">Socks &amp Garden Gnome</p>
+		  <p><span style="font-weight:bold;">Sale:</span> Socks BOGO</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='nine'>
+    <h3 class="day-number">Day<br>9</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">Utah Shop Themed Gifts, Notebooks, Mugs, etc.</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='ten'>
+    <h3 class="day-number">Day<br>10</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">Gloves &amp Beanies</p>
+		  <p><span style="font-weight:bold;">Sale:</span> Buy a pair of gloves &amp get a beanie 40% off</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='eleven'>
+    <h3 class="day-number">Day<br>11</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">PJ's, Loungewear, &amp Robes</p>
+		  <p><span style="font-weight:bold;">Sale:</span> Robe $29.99, PJ's $14.99</p>
+      <a href="/">Shop Now</a>
+		</div>
+		
+  </div>
+  <div class="day-frame center real" id='twelve'>
+    <h3 class="day-number">Day<br>12</h3>
+    
+    <!--<div class="day-label center">Coming Soon!</div>-->
+		
+		<div class="day-label center">
+		  <p class="day-label-title">All Utah Hats BOGO</p>
+      <a href="/">Shop Now</a>
+		</div>
+  </div>
+</div>
