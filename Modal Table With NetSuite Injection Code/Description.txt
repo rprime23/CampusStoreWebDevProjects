@@ -1,0 +1,2 @@
+NetSuite Item Options are automaticaal generated, so in order to add the help message in the correct sport JavaScript had to be used to inject the modal message in the right spot. 
+It is built so it doesn't need the injection code if not wanted.
