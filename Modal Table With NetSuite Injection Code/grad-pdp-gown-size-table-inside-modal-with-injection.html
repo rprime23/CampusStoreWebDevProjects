@@ -1,0 +1,459 @@
+<style>
+/* Trigger text */
+    .grad-size-help-trigger {
+        margin: 10px 0;
+        color: #be0000;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: underline;
+    }
+
+    .grad-size-help-trigger:hover {
+        text-decoration: none;
+    }
+
+    /* Modal overlay */
+    .grad-size-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 999999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+    }
+
+    .grad-size-modal-overlay.is-open {
+        display: flex;
+    }
+
+    /* Modal box */
+    .grad-size-modal {
+        width: min(920px, 100%);
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .grad-size-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid #e6e6e6;
+        background: #fcfcfc;
+    }
+
+    .grad-size-modal-title {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #111;
+    }
+
+    .grad-size-modal-close {
+        appearance: none;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 22px;
+        line-height: 1;
+        padding: 6px 10px;
+        border-radius: 10px;
+        color: #333;
+    }
+
+    .grad-size-modal-close:hover {
+        background: #f2f2f2;
+    }
+
+    .grad-size-modal-body {
+        padding: 14px 16px 18px 16px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* --------- MODAL TEXT STYLES ----------*/
+
+    .grad-modal-body-section-header,
+    .grad-modal-body-text,
+    .grad-modal-body-list {
+        color: black !important;
+    }
+
+    .grad-modal-body-list {
+        margin-bottom: 5px;
+        list-style-type: disc !important;
+        padding-left: 15px;
+    }
+
+    .grad-modal-body-list-item {
+        list-style-type: disc !important;
+    }
+
+    .grad-modal-body-text {
+        padding-left: 5px;
+        padding-bottom: 10px;
+    }
+
+    .grad-modal-body-section-header {
+        font-size: 1.2rem;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    /* ---------- TABLE STYLES ---------- */
+    .grad-pdp-table {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        border: none;
+        text-align: center !important;
+        background-color: white !important;
+    }
+
+    .grad-pdp-table-row-white {
+        background-color: #f8f8f8;
+    }
+
+    .grad-pdp-table-row-gray {
+        background-color: #f0f0f0;
+    }
+
+    .grad-pdp-table-th {
+        border-radius: 8px 8px 0px 0px;
+        background-color: #555;
+    }
+
+    .grad-pdp-table-header {
+        border-bottom: none;
+        border-top: none;
+    }
+
+    .grad-pdp-table-row {
+        border: none !important;
+    }
+
+    .grad-pdp-table-th,
+    .grad-pdp-table-td {
+        border: none;
+        padding: 10px;
+        border-left: 3px solid white;
+        border-right: 3px solid white;
+        text-align: center !important;
+    }
+
+    .grad-pdp-table-th-red {
+        background-color: #be0000;
+        color: white;
+    }
+
+    .grad-pdp-table-th-white {
+        color: #be0000;
+        background-color: #fcfcfc;
+    }
+
+    .grad-pdp-table-th-gray {
+        background-color: #aaaaaa;
+        color: black;
+    }
+
+    .grad-pdp-table-th-dark-gray {
+        background-color: #555;
+        color: white;
+    }
+
+    @media screen and (max-width: 768px) {
+
+        .grad-pdp-table,
+        .grad-pdp-table tbody,
+        .grad-pdp-table tr {
+            display: block;
+            width: 100%;
+        }
+
+        .grad-pdp-table-header {
+            display: none !important;
+        }
+
+        .grad-pdp-table-row {
+            background-color: #f8f8f8 !important;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .grad-pdp-table-row .grad-pdp-table-td:not(.height-cell):nth-child(even) {
+            background-color: #f0f0f0 !important;
+        }
+
+        .grad-pdp-table-row .grad-pdp-table-td:not(.height-cell):nth-child(odd) {
+            background-color: #f8f8f8 !important;
+        }
+
+        /* Cells */
+        .grad-pdp-table-td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            border: none;
+            text-align: right;
+            font-size: 14px;
+            gap: 10px;
+        }
+
+        /* Labels */
+        .grad-pdp-table-td::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: #444;
+            text-align: left;
+            padding-right: 12px;
+            flex: 0 0 45%;
+        }
+
+        /* Height = card header */
+        .height-cell {
+            background: #be0000;
+            color: white;
+            font-weight: 700;
+        }
+
+        .height-cell::before {
+            content: "Height";
+            color: white;
+        }
+    }
+</style>
+
+<!-- Trigger -->
+<p class="grad-size-help-trigger" id="gradSizeHelpTrigger" tabindex="0" role="button" aria-controls="gradSizeHelpModal"
+    aria-expanded="false">
+    Need help selecting your gown size?
+</p>
+
+<!-- Modal -->
+<div class="grad-size-modal-overlay" id="gradSizeHelpModal" role="dialog" aria-modal="true"
+    aria-labelledby="gradSizeHelpTitle">
+    <div class="grad-size-modal">
+        <div class="grad-size-modal-header">
+            <p class="grad-size-modal-title" id="gradSizeHelpTitle">Gown Size Chart</p>
+            <button class="grad-size-modal-close" type="button" id="gradSizeHelpClose"
+                aria-label="Close size chart">&times;</button>
+        </div>
+
+        <div class="grad-size-modal-body">
+            <p class="grad-modal-body-section-header">
+                Gown Size & Fit Guide:
+            </p>
+            <p class="grad-modal-body-text">
+                Your height determines the gown length. Fit determines how much space you have for comfort and layering.
+                The Gown Fit table below shows suggested fit based on height/weight dimensions. Classic Fit is the most
+                common option for most graduates.
+            </p>
+            <p class="grad-modal-body-section-header">
+                How gown fit works:
+            </p>
+            <p class="grad-modal-body-text">
+                Graduation gowns are designed to be worn over your clothing. Fit options adjust how roomy the gown feels
+                through the body — not the length.
+            </p>
+            <ul class="grad-modal-body-list">
+                <li>Classic Fit - Standard fit and the most common choice</li>
+                <li>Roomier Fit - Extra room through the chest and shoulders</li>
+                <li>Extra Room Fit - Most generous fit for maximum comfort</li>
+            </ul>
+            <p class="grad-modal-body-text">
+                Choose a roomier fit if you prefer extra space or will be wearing bulkier clothing underneath.
+            </p>
+            <p class="grad-modal-body-text">
+                If you are unsure, Classic Fit is recommended for most graduates.
+            </p>
+            <table class="grad-pdp-table">
+                <tr class="grad-pdp-table-header">
+                    <th class="grad-pdp-table-th grad-pdp-table-th-red">Height</th>
+                    <th class="grad-pdp-table-th grad-pdp-table-th-white">Standard</th>
+                    <th class="grad-pdp-table-th grad-pdp-table-th-gray">Roomier Fit</th>
+                    <th class="grad-pdp-table-th grad-pdp-table-th-dark-gray">Extra Room Fit</th>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-white">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">4'10"-5'0" (1.47–1.52 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 160 lbs (&lt; 73 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">160–219 lbs (73–99 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">220+ lbs (100+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-gray">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">5'1"-5'3" (1.55–1.60 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 180 lbs (&lt; 82 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">180–239 lbs (82–108 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">240+ lbs (109+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-white">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">5'4"-5'6" (1.63–1.68 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 200 lbs (&lt; 91 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">200–264 lbs (91–120 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">265+ lbs (120+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-gray">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">5'7"-5'9" (1.70–1.75 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 230 lbs (&lt; 104 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">230–294 lbs (104–133 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">295+ lbs (134+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-white">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">5'10"-6'0" (1.78–1.83 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 260 lbs (&lt; 118 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">260–329 lbs (118–149 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">330+ lbs (150+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-gray">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">6'1"-6'3" (1.85–1.91 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 285 lbs (&lt; 129 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">285–354 lbs (129–161 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">355+ lbs (161+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-white">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">6'4"-6'6" (1.93–1.98 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 310 lbs (&lt; 141 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">310–384 lbs (141–174 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">385+ lbs (175+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-gray">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">6'7"-6'9" (2.01–2.06 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 330 lbs (&lt; 150 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">330–404 lbs (150–183 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">405+ lbs (184+ kg)</td>
+                </tr>
+
+                <tr class="grad-pdp-table-row grad-pdp-table-row-white">
+                    <td class="grad-pdp-table-td height-cell" data-label="Height">6'10"-7'0" (2.08–2.13 m)</td>
+                    <td class="grad-pdp-table-td" data-label="Standard Fit">&lt; 350 lbs (&lt; 159 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Roomier Fit">350–429 lbs (159–195 kg)</td>
+                    <td class="grad-pdp-table-td" data-label="Extra Room Fit">430+ lbs (195+ kg)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var trigger = document.getElementById('gradSizeHelpTrigger');
+        var modal = document.getElementById('gradSizeHelpModal');
+        var closeBtn = document.getElementById('gradSizeHelpClose');
+        var lastFocused = null;
+
+        function openGradModal() {
+            lastFocused = document.activeElement;
+            modal.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        }
+
+        function closeGradModal() {
+            modal.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+            if (lastFocused && typeof lastFocused.focus === 'function') {
+                lastFocused.focus();
+            }
+        }
+
+        if (trigger) {
+            trigger.addEventListener('click', openGradModal);
+            trigger.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openGradModal();
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeGradModal);
+        }
+
+        if (modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeGradModal();
+                }
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (!modal.classList.contains('is-open')) return;
+                if (e.key === 'Escape') {
+                    closeGradModal();
+                }
+            });
+        }
+    })();
+</script>
+
+
+<!-- INJECTION SCRIPT -->
+<!-- <script>
+(function () {
+
+  function injectTriggerAtBottom() {
+    var container = document.getElementById('custcolcustcol_regalia_fit_nonmatrix-container');
+    if (!container) return false;
+
+    // Prevent duplicates
+    if (document.getElementById('gradSizeHelpTrigger')) return true;
+
+    var p = document.createElement('p');
+    p.className = 'grad-size-help-trigger';
+    p.id = 'gradSizeHelpTrigger';
+    p.setAttribute('tabindex', '0');
+    p.setAttribute('role', 'button');
+    p.setAttribute('aria-controls', 'gradSizeHelpModal');
+    p.setAttribute('aria-expanded', 'false');
+    p.textContent = 'Need help selecting your gown size?';
+
+    container.appendChild(p);
+    return true;
+  }
+
+  // Run now
+  injectTriggerAtBottom();
+
+  // Retry because SCA renders options async
+  var attempts = 0;
+  var interval = setInterval(function () {
+    var done = injectTriggerAtBottom();
+    attempts++;
+    if (done || attempts > 60) clearInterval(interval);
+  }, 250);
+
+  // Observe DOM changes to re-inject if SCA re-renders
+  if ('MutationObserver' in window) {
+    var observer = new MutationObserver(function () {
+      injectTriggerAtBottom();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+})();
+</script> -->
