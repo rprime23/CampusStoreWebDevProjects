@@ -1,0 +1,302 @@
+<style>
+  .grad-pdp-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    /*gap:20px;*/
+  }
+
+  .grad-pdp-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* border:2px solid black; */
+    /* box-shadow: 10px 10px 5px gray; */
+    padding: 10px;
+    /* border-radius: 10px; */
+  }
+
+  .grad-pdp-img {
+    max-height: 350px;
+  }
+
+  @media screen and (max-width: 576px) {
+    .grad-pdp-row {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="grad-pdp-row">
+  <div class="grad-pdp-col">
+    <a href="/Dip-Classic-Red-8-5x11">
+      <img class="grad-pdp-img" src="/product_images/2090450_media_1.jpg" alt="Jostens Classic Diploma Frame Red Matte">
+      <h3 class="grad-pdp-title">Jostens Classic Diploma Frame Red Matte</h3>
+    </a>
+    <p class="grad-pdp-desc">The Classic is the diploma frame that has set the standard for the industry.</p>
+    <a class="buy-button columnscct-button ajax-add-to-cart" data-action="navigate-to-url" data-ajax-cart="true"
+      data-fallback="true" href="/app/site/backend/intl/additemtocart.nl?c=8157132&amp;buyid=multi&amp;multi=31529,1"
+      data-original-text="Add To Cart for $258" data-in-flight="false">
+      Add To Cart for $258
+    </a>
+  </div>
+  <div class="grad-pdp-col">
+    <a href="/Dip-Classic-Red-8-5x11">
+      <img class="grad-pdp-img" src="/product_images/2090450_media_1.jpg" alt="Jostens Classic Diploma Frame Red Matte">
+      <h3 class="grad-pdp-title">Jostens Classic Diploma Frame Red Matte</h3>
+    </a>
+    <p class="grad-pdp-desc">The Classic is the diploma frame that has set the standard for the industry.</p>
+    <a class="buy-button columnscct-button ajax-add-to-cart" data-action="navigate-to-url" data-ajax-cart="true"
+      data-fallback="true" href="/app/site/backend/intl/additemtocart.nl?c=8157132&amp;buyid=multi&amp;multi=31529,1"
+      data-original-text="Add To Cart for $258" data-in-flight="false">
+      Add To Cart for $258
+    </a>
+  </div>
+  <div class="grad-pdp-col">
+    <a href="/Dip-Lancaster-Blk-8-5x11">
+      <img class="grad-pdp-img" src="/product_images/2090445_01.jpg" alt="Jostens Lancaster Diploma Frame Black Matte">
+      <h3 class="grad-pdp-title">Jostens Lancaster Diploma Frame Black Matte</h3>
+    </a>
+    <p class="grad-pdp-desc">The Lancaster diploma frame marries traditional and modern design.</p>
+    <a class="buy-button columnscct-button ajax-add-to-cart" data-action="navigate-to-url" data-ajax-cart="true"
+      data-fallback="true" href="/app/site/backend/intl/additemtocart.nl?c=8157132&amp;buyid=multi&amp;multi=31524,1"
+      data-original-text="
+            Add To Cart for $287
+            " data-in-flight="false">
+      Add To Cart for $287
+    </a>
+  </div>
+  <div class="grad-pdp-col">
+    <a href="/Dip-Meridian-Red-8-5x11">
+      <img class="grad-pdp-img" src="/product_images/2090323_media_1.jpg"
+        alt="Jostens Meridian Diploma Frame Red Matte">
+      <h3 class="grad-pdp-title">Jostens Meridian Diploma Frame Red Matte</h3>
+    </a>
+    <p class="grad-pdp-desc">The Meridian college diploma frame provides a perfectly subtle presentation.</p>
+    <a class="buy-button columnscct-button ajax-add-to-cart" data-action="navigate-to-url" data-ajax-cart="true"
+      data-fallback="true" href="/app/site/backend/intl/additemtocart.nl?c=8157132&amp;buyid=multi&amp;multi=31513,1"
+      data-original-text="
+            Add To Cart for $218
+            " data-in-flight="false">
+      Add To Cart for $218
+    </a>
+  </div>
+</div>
+
+<!-- Hidden iframe used for background add-to-cart (CMS-safe) -->
+<iframe id="ns-hidden-cart-frame" name="ns-hidden-cart-frame" style="display:none;"></iframe>
+
+<script>
+  (function () {
+    // Bind only once even if CMS injects multiple times
+    if (window.__NS_IFRAME_CART_BINDED__) return;
+    window.__NS_IFRAME_CART_BINDED__ = true;
+
+    // If user refreshes while adding, we still prevent double-add on immediate re-click
+    // (Short TTL lock stored in sessionStorage)
+    var LOCK_KEY = '__NS_CART_ADD_LOCK__';
+    var LOCK_TTL_MS = 5000;
+
+    function now() { return Date.now(); }
+
+    function getLockMap() {
+      try { return JSON.parse(sessionStorage.getItem(LOCK_KEY) || '{}') || {}; }
+      catch (e) { return {}; }
+    }
+
+    function setLockMap(map) {
+      try { sessionStorage.setItem(LOCK_KEY, JSON.stringify(map)); } catch (e) { }
+    }
+
+    function isLocked(key) {
+      var map = getLockMap();
+      var t = map[key];
+      return typeof t === 'number' && (now() - t) < LOCK_TTL_MS;
+    }
+
+    function lockKey(key) {
+      var map = getLockMap();
+      map[key] = now();
+      setLockMap(map);
+    }
+
+    function unlockKey(key) {
+      var map = getLockMap();
+      delete map[key];
+      setLockMap(map);
+    }
+
+    function setButtonState(btn, stateText, disabled) {
+      if (!btn) return;
+      if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
+      btn.textContent = stateText;
+
+      if (disabled) {
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.75';
+        btn.setAttribute('aria-disabled', 'true');
+      } else {
+        btn.style.pointerEvents = '';
+        btn.style.opacity = '';
+        btn.removeAttribute('aria-disabled');
+      }
+    }
+
+    // Extract the "multi=" item list so desktop/mobile variants lock together even if their URLs differ
+    function getMultiKeyFromHref(href) {
+      try {
+        var u = new URL(href, window.location.href);
+        // multi looks like: "420304,1" or "1124283,1;673056,1"
+        return u.searchParams.get('multi') || '';
+      } catch (e) {
+        // fallback: simple parse
+        var m = href.match(/[?&]multi=([^&]+)/);
+        return m ? decodeURIComponent(m[1]) : '';
+      }
+    }
+
+    function getGroupKey(btn) {
+      // Prefer explicit sku key if you set it on BOTH desktop + mobile
+      if (btn.dataset.sku) return 'sku:' + btn.dataset.sku;
+
+      // Otherwise group by multi= parameter (best for your case)
+      var multi = getMultiKeyFromHref(btn.getAttribute('href') || '');
+      return multi ? 'multi:' + multi : 'href:' + (btn.getAttribute('href') || '');
+    }
+
+    function getGroupButtons(groupKey) {
+      var all = Array.prototype.slice.call(document.querySelectorAll('a.ajax-add-to-cart[data-ajax-cart="true"]'));
+      return all.filter(function (b) {
+        return getGroupKey(b) === groupKey;
+      });
+    }
+
+    function setGroupState(groupKey, text, disabled) {
+      getGroupButtons(groupKey).forEach(function (b) {
+        setButtonState(b, text, disabled);
+        b.dataset.inFlight = disabled ? 'true' : 'false';
+      });
+    }
+
+    // On refresh/navigation restore, if a lock is still active, show "Adding..." briefly & keep disabled
+    window.addEventListener('pageshow', function () {
+      var all = document.querySelectorAll('a.ajax-add-to-cart[data-ajax-cart="true"]');
+      all.forEach(function (btn) {
+        var gk = getGroupKey(btn);
+        if (isLocked(gk)) {
+          setGroupState(gk, 'Adding...', true);
+          // auto-release after TTL remainder
+          setTimeout(function () {
+            // Only release if still locked
+            if (!isLocked(gk)) return;
+            unlockKey(gk);
+            setGroupState(gk, (btn.dataset.originalText || 'Add To Cart'), false);
+          }, LOCK_TTL_MS);
+        } else {
+          // ensure normal
+          btn.dataset.inFlight = 'false';
+          if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
+          btn.style.pointerEvents = '';
+          btn.style.opacity = '';
+          btn.removeAttribute('aria-disabled');
+        }
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('a.ajax-add-to-cart[data-ajax-cart="true"]');
+      if (!btn) return;
+
+      // Stop NetSuite/SCA handlers + other listeners
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+
+      var url = btn.getAttribute('href');
+      var iframe = document.getElementById('ns-hidden-cart-frame');
+
+      if (!url || !iframe) {
+        window.open(url, '_blank');
+        return;
+      }
+
+      var groupKey = getGroupKey(btn);
+
+      // If group is already locked (including after refresh), do nothing
+      if (isLocked(groupKey)) return;
+
+      // Lock group immediately (persist through refresh)
+      lockKey(groupKey);
+
+      // Disable ALL matching buttons (desktop + mobile)
+      setGroupState(groupKey, 'Adding...', true);
+
+      // Attempt background add-to-cart
+      try {
+        // Cache-bust
+        var cacheBust = (url.indexOf('?') > -1 ? '&' : '?') + 'cb=' + Date.now();
+        iframe.onload = null;
+        iframe.onerror = null;
+
+        var finished = false;
+
+        function finishSuccess() {
+          if (finished) return;
+          finished = true;
+
+          // Release lock
+          unlockKey(groupKey);
+
+          // Show success state briefly so the user sees it
+          setGroupState(groupKey, 'Added ✓', true);
+
+          // ✅ Refresh after 0.5 seconds
+          setTimeout(function () {
+            window.location.reload();
+          }, 500);
+        }
+
+        function finishFail() {
+          if (finished) return;
+          finished = true;
+
+          unlockKey(groupKey);
+
+          // Re-enable buttons
+          getGroupButtons(groupKey).forEach(function (b) {
+            setButtonState(b, b.dataset.originalText || 'Add To Cart', false);
+            b.dataset.inFlight = 'false';
+          });
+
+          // Redirect/open only if necessary
+          if (btn.dataset.fallback === 'true') {
+            window.open(url, '_blank');
+          }
+        }
+
+        var fallbackTimer = setTimeout(finishFail, 4500);
+
+        iframe.onload = function () {
+          clearTimeout(fallbackTimer);
+          finishSuccess();
+        };
+
+        iframe.onerror = function () {
+          clearTimeout(fallbackTimer);
+          finishFail();
+        };
+
+        iframe.src = url + cacheBust;
+
+      } catch (err) {
+        unlockKey(groupKey);
+        getGroupButtons(groupKey).forEach(function (b) {
+          setButtonState(b, b.dataset.originalText || 'Add To Cart', false);
+          b.dataset.inFlight = 'false';
+        });
+        window.open(url, '_blank');
+      }
+    }, true); // capture=true
+  })();
+</script>
